@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sorry Page</title>
+<style>
+    body {
+        font-family: 'Comic Sans MS', cursive, sans-serif;
+        background: linear-gradient(to bottom, #ffe6f2, #f0e6ff);
+        color: #333;
+        text-align: center;
+        padding: 50px;
+        margin: 0;
+        min-height: 100vh;
+    }
+    .container {
+        max-width: 600px;
+        margin: 0 auto;
+        background-color: rgba(255, 255, 255, 0.9);
+        padding: 30px;
+        border-radius: 20px;
+        box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+        animation: float 3s ease-in-out infinite;
+        position: relative;
+    }
+    @keyframes float {
+        0%, 100% { transform: translateY(0px); }
+        50% { transform: translateY(-10px); }
+    }
+    .message {
+        font-size: 24px;
+        margin-bottom: 20px;
+        line-height: 1.5;
+    }
+    .forgive-me {
+        font-size: 28px;
+        font-weight: bold;
+        color: #ff69b4;
+        margin-bottom: 20px;
+    }
+    .buttons {
+        margin-top: 20px;
+        position: relative;
+        height: 80px;
+    }
+    button {
+        font-size: 18px;
+        padding: 12px 24px;
+        border: none;
+        border-radius: 25px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        font-family: inherit;
+        position: absolute;
+    }
+    #yes {
+        background-color: #a8e6cf;
+        color: #333;
+        left: 25%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+    }
+    #yes:hover {
+        background-color: #81c784;
+        transform: translate(-50%, -50%) scale(1.05);
+    }
+    #no {
+        background-color: #ffb3ba;
+        color: #333;
+        left: 75%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        transition: transform 0.3s ease-in-out;
+    }
+    .thank-you {
+        display: none;
+        font-size: 24px;
+        margin-top: 20px;
+        line-height: 1.5;
+    }
+</style>
+</head>
+<body>
+<div class="container">
+    <div class="message">
+        🌸 Oopsie! 🌸<br>
+        Sorry, I have no other intention... 💕<br>
+        You mean a lot to me, truly.<br>
+        Just wanted to make you smile! 😊
+    </div>
+    <div class="forgive-me">
+        Forgive me?
+    </div>
+    <div class="buttons">
+        <button id="yes">Yes 💖</button>
+        <button id="no">No 😢</button>
+    </div>
+    <div class="thank-you" id="thankYou">
+        💖 Thank You Madam Ji 💖<br>
+        I promise I’ll behave… just unblock me 🥺💗<br>
+        You really made me happy 🌸✨
+    </div>
+</div>
+
+<script>
+const yesButton = document.getElementById('yes');
+const noButton = document.getElementById('no');
+const thankYouDiv = document.getElementById('thankYou');
+const container = document.querySelector('.container');
+
+yesButton.addEventListener('click', () => {
+    container.innerHTML = '';
+    container.appendChild(thankYouDiv);
+    thankYouDiv.style.display = 'block';
+});
+
+// No button dodge logic
+let dodgeCount = 0;
+const maxDodges = 200;
+
+noButton.addEventListener('mouseenter', () => {
+    if (dodgeCount >= maxDodges) return;
+
+    const containerRect = container.getBoundingClientRect();
+    const btnRect = noButton.getBoundingClientRect();
+    
+    const padding = 20; // leave some space from edges
+    const maxX = containerRect.width - btnRect.width - padding;
+    const maxY = containerRect.height - btnRect.height - padding;
+
+    const randomX = Math.random() * maxX + padding/2;
+    const randomY = Math.random() * maxY + padding/2;
+
+    noButton.style.transform = `translate(${randomX}px, ${randomY}px)`;
+
+    dodgeCount++;
+});
+</script>
+</body>
+</html>
+
